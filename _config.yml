@@ -1,8 +1,5 @@
 # Dependencies
 markdown:         redcarpet
-redcarpet:
-  extensions: ["tables"]
-
 highlighter:      pygments
 
 # Permalinks
@@ -13,12 +10,14 @@ relative_permalinks: true
 title:            Vince's Blog
 tagline:          ''
 url:              http://vdupain.github.io
-paginate:         1
 baseurl:          /
+
 author:
   name:           Vincent Dupain
   url:            https://twitter.com/vdupain
   email:          vdupain@gmail.com
+
+paginate:         1
 
 # Custom vars
 version:          1.0.0
