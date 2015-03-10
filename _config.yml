@@ -1,0 +1,24 @@
+# Permalinks
+permalink:        pretty
+relative_permalinks: true
+
+# Setup
+title:            Vince's Blog
+tagline:          ''
+#url:              http://vdupain.github.io
+paginate:         1
+baseurl:          /
+author:
+  name:           Vincent Dupain
+  url:            https://twitter.com/vdupain
+  email:          vdupain@gmail.com
+
+# Custom vars
+version:          1.0.0
+github:
+  repo:           https://github.com/vdupain/vdupain.github.io
+
+pages_list:       
+  About: '/about'
+  Archive: '/archive'
+  Feed: '/atom.xml'

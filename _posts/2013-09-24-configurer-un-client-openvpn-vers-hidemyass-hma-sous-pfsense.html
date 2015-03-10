@@ -1,0 +1,177 @@
+---
+layout: post
+title: Configurer un client OpenVPN vers HideMyAss (HMA) sous PFSense
+date: 2013-09-24 10:29:06.000000000 +02:00
+categories:
+- Réseau
+tags:
+- réseau vpn openvpn pfsense hma
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '17000744'
+  _wpas_done_4700178: '1'
+  _publicize_done_external: a:1:{s:11:"google_plus";a:1:{s:21:"118091681217572986960";b:1;}}
+  publicize_twitter_user: vdupain
+  _wpas_done_529108: '1'
+  _wpas_done_4700187: '1'
+  _wpas_skip_4700178: '1'
+  _wpas_skip_529108: '1'
+  _wpas_skip_4700187: '1'
+author:
+  login: vdupain
+  email: vdupain@gmail.com
+  display_name: vdupain
+  first_name: ''
+  last_name: ''
+excerpt: !ruby/object:Hpricot::Doc
+  options: {}
+---
+<h1>Introduction</h1>
+<p>L'objectif est de configurer le routeur/firewall <a href="http://www.pfsense.org">PFSense</a> pour router le trafic de certaines adresses IP vers <a href="http://hidemyass.com/vpn/">HideMyAss</a> (HMA) avec OpenVPN.</p>
+<p>Ce tutoriel est plus ou moins valable pour d'autres fournisseurs VPN pour peu que l'on configure correctement le client OpenVPN correctement.</p>
+<p><strong><em>Petit rappel</em></strong>:  un VPN permet d'établir un tunnel chiffré entre votre ordinateur et un serveur VPN qui vous sert de passerelle vers Internet. Le VPN est à ce jour la seule solution fiable contre le DPI (Deep Packet Inspection). Le VPN permet par exemple d'accéder à un service limité à une zone géographique en se basant sur la géolocalisation des adresses IP (Google Music à ces débuts, marketplace XBox/PS3, fournisseurs de contenu, etc...)</p>
+<h1>Prérequis</h1>
+<ul>
+<li>Avoir un router PFSense sous la main, en version 2.1 dans le cas de ce tutoriel.</li>
+<li>Une compte VPN HMA.</li>
+<li>Récupérer le package de connexion HMA depuis <a href="https://vpn.hidemyass.com/vpncontrol/signin">https://vpn.hidemyass.com/vpncontrol/signin</a>. Ce package contient un répertoire <strong>keys</strong> avec les fichiers ca.crt, hmauser.crt, et hmauser.key. Ces fichiers sont uniques pour chaque utilisateur du VPN.</li>
+<li>Télécharger les fichiers de configuration OpenVPN depuis <a href="http://hidemyass.com/vpn-config/">http://hidemyass.com/vpn-config/</a>.</li>
+</ul>
+<h1>Configuration des certificats</h1>
+<ul>
+<li>Se connecter à l'interface Web du routeur PFSense, généralement <a href="http://192.168.1.1">http://192.168.1.1</a></li>
+<li>Aller dans le menu <strong>System &gt; Cert Manager</strong>.</li>
+<li>Dans l'onget <strong>Cert Manager</strong>, cliquer sur le bouton (+) pour ajouter une autorité de certification (CA).</li>
+<li>Donner un nom au CA, par exemple <strong>HMA CA</strong>.</li>
+<li>Copier/Coller le contenu du fichier <strong><em>ca.crt</em></strong> dans la section <strong>Certificate data</strong>.</li>
+<li>Cliquer sur <strong>Save</strong>.</li>
+</ul>
+<p style="text-align:center;"><a href="{{ site.url }}/assets/pfsense_hma_1.png"><img class="size-full wp-image-239 aligncenter" alt="pfsense_hma_1" src="{{ site.url }}/assets/pfsense_hma_1.png" width="630" height="476" /></a></p>
+<ul>
+<li>Une fois sauvegardé, le CA est visible sous le nom <strong>HMA CA</strong> comme ci-dessous:</li>
+</ul>
+<p style="text-align:center;"><a href="{{ site.url }}/assets/pfsense_hma_2.png"><img class="size-full wp-image-240 aligncenter" alt="pfsense_hma_2" src="{{ site.url }}/assets/pfsense_hma_2.png" width="630" height="280" /></a></p>
+<ul>
+<li>Cliquer sur l'onglet <strong>Certificates</strong> et cliquer sur le bouton (+) pour ajouter un certificat.</li>
+<li>Donner un nom au certificat, par exemple <strong>HMA OVPN</strong>.</li>
+<li>Copier/Coller le contenu du fichier <em><strong>hmauser.crt</strong></em> dans la section <strong>Certificate data</strong>.</li>
+<li>Copier/Coller le contenu du fichier <em><strong>hmauser.key</strong></em> dans la section <strong>Private key data</strong>.</li>
+<li>Cliquer sur <strong>Save</strong>.</li>
+</ul>
+<p style="text-align:center;"><a href="{{ site.url }}/assets/pfsense_hma_3.png"><img class="size-full wp-image-241 aligncenter" alt="pfsense_hma_3" src="{{ site.url }}/assets/pfsense_hma_3.png" width="630" height="413" /></a></p>
+<ul>
+<li>Une fois sauvegardé, le certificat est visible sous le nom <strong>HMA OVPN</strong> comme ci-dessous:</li>
+</ul>
+<p style="text-align:center;"><a href="{{ site.url }}/assets/pfsense_hma_4.png"><img class="size-full wp-image-242 aligncenter" alt="pfsense_hma_4" src="{{ site.url }}/assets/pfsense_hma_4.png" width="630" height="383" /></a></p>
+<h1>Compte de connexion VPN HMA</h1>
+<ul>
+<li>Aller dans le menu <strong>Diagnostics &gt; Edit File</strong>.</li>
+<li>Dans le champ <strong>Save / Load from path</strong>, mettre <strong><em>/conf/hmuser.conf</em></strong>.</li>
+<li>Dans la zone de saisie, mettre votre login et mot de passe sur 2 lignes.</li>
+<li>Cliquer sur <strong>Save</strong>.</li>
+</ul>
+<p style="text-align:center;"><a href="{{ site.url }}/assets/pfsense_hma_5.png"><img class="size-full wp-image-243 aligncenter" alt="pfsense_hma_5" src="{{ site.url }}/assets/pfsense_hma_5.png" width="630" height="143" /></a></p>
+<h1>Configuration du client OpenVPN</h1>
+<ul>
+<li>Aller dans le menu <strong>VPN &gt; OpenVPN</strong>.</li>
+<li>Cliquer sur l'onglet <strong>Client</strong>.</li>
+<li>Cliquer sur le bouton (+) pour ajouter un client OpenVPN.</li>
+<li>Sélectionner le protocole <strong>TCP</strong> (HMA fonctionne aussi en UDP).</li>
+<li>Entrer l'adresse IP du serveur auquel se connecter, les IPs des serveurs VPN sont indiquées dans les fichiers de configuration OpenVPN téléchargés.</li>
+<li>Entrer le numéro de port: <strong>443 en TCP et 53 en UDP.</strong></li>
+<li>Mettre une description pour le client OpenVPN, par exemple <strong>HMA Pro VPN</strong>.</li>
+<li>Cocher l'option <strong>Infinitely Resolve Server</strong>.</li>
+</ul>
+<p style="text-align:center;"><a href="{{ site.url }}/assets/pfsense_hma_6.png"><img class="size-full wp-image-244 aligncenter" alt="pfsense_hma_6" src="{{ site.url }}/assets/pfsense_hma_6.png" width="630" height="514" /></a></p>
+<ul>
+<li>Décocher l'option <strong>Enable Authentication of TLS Packets</strong>.</li>
+<li>Sélectionner <strong>HMA CA</strong> dans la combobox<strong> Peer Certificate Authority</strong>.</li>
+<li>Sélectionner <strong>HMA OVPN</strong> dans la combobox <strong>Client Certificate</strong>.</li>
+<li>Choisir l'algorithme de chiffrement <strong>BF-CBC 128 bits</strong>.</li>
+</ul>
+<p style="text-align:center;"><a href="{{ site.url }}/assets/pfsense_hma_7.png"><img class="size-full wp-image-245 aligncenter" alt="pfsense_hma_7" src="{{ site.url }}/assets/pfsense_hma_7.png" width="630" height="165" /></a></p>
+<ul>
+<li>Ajouter la configuration suivante dans la zone prévue à cet effet: <em><strong>verb 3;ns-cert-type server;auth-user-pass /conf/hmauser.conf;persist-key;persist-tun;route-nopull;</strong></em>
+<ul>
+<li>l'option <strong>route-nopull</strong> permet de refuser les directives de routage des serveurs HMA. En effet par defaut les serveurs de HMA poussent des règles de routage dont la règle "redirect-gateway" qui refinit la route par défaut vers les serveurs HMA .</li>
+</ul>
+</li>
+<li><em><strong></strong></em>Cliquer sur <strong>Save</strong>.</li>
+</ul>
+<p style="text-align:center;"><a href="{{ site.url }}/assets/pfsense_hma_82.png"><img class=" wp-image-246 aligncenter" alt="pfsense_hma_8" src="{{ site.url }}/assets/pfsense_hma_82.png" width="630" height="188" /></a></p>
+<ul>
+<li>La configuration du client OpenVPN est terminée et elle est visible dans l'interface de PFSense. On peut voir l'IP du serveur VPN, le protocole et le port de connexion.</li>
+</ul>
+<p style="text-align:center;"><a href="{{ site.url }}/assets/pfsense_hma_9.png"><img class="size-full wp-image-247 aligncenter" alt="pfsense_hma_9" src="{{ site.url }}/assets/pfsense_hma_9.png" width="630" height="154" /></a></p>
+<ul>
+<li>Aller dans le menu <strong>Satus &gt; System logs</strong>.</li>
+<li>Sélectionner l'onglet <strong>OpenVPN</strong>.</li>
+<li>Vérifier dans les logs que la connexion avec le serveur VPN est bien établie: <em>TCP connection established with...</em></li>
+</ul>
+<p style="text-align:center;"><a href="{{ site.url }}/assets/pfsense_hma_10.png"><img class="size-full wp-image-248 aligncenter" alt="pfsense_hma_10" src="{{ site.url }}/assets/pfsense_hma_10.png" width="630" height="433" /></a></p>
+<ul>
+<li>Aller dans le menu <strong>Status &gt; OpenVPN</strong>.</li>
+<li>Vérifier que le statut de la connexion VPN est bien "<strong>up</strong>".</li>
+</ul>
+<p style="text-align:center;"><a href="{{ site.url }}/assets/pfsense_hma_11.png"><img class="size-full wp-image-249 aligncenter" alt="pfsense_hma_11" src="{{ site.url }}/assets/pfsense_hma_11.png" width="630" height="229" /></a></p>
+<h1>Configuration de l'interface</h1>
+<ul>
+<li>Aller dans le menu <strong>Interfaces &gt; (assign)</strong>.</li>
+<li>Cliquer sur le bouton (+) pour ajouter une nouvelle interface.</li>
+<li>Pour la nouvelle interface créee <strong>OPT1</strong>, sélectionner l'interface réseau correspondant au client VPN: <strong>ovpnc1 (HMA Pro VPN)</strong> ou ovpnc2 (HMA Pro VPN).</li>
+<li>Cliquer sur <strong>Save</strong>.</li>
+</ul>
+<p style="text-align:center;"><a href="{{ site.url }}/assets/pfsense_hma_12.png"><img class="size-full wp-image-250 aligncenter" alt="pfsense_hma_12" src="{{ site.url }}/assets/pfsense_hma_12.png" width="630" height="305" /></a></p>
+<ul>
+<li>Cliquer sur le nom de l'interface OPT1 créee précédement.</li>
+<li>Cocher l'option <strong>Enable Interface</strong> afin d'activer l'interface.</li>
+<li>Changer la description et mettre <strong>HMA</strong> par exemple.</li>
+<li>Cliquer sur <strong>Save</strong>.</li>
+</ul>
+<p style="text-align:center;"><a href="{{ site.url }}/assets/pfsense_hma_13.png"><img class="size-full wp-image-251 aligncenter" alt="pfsense_hma_13" src="{{ site.url }}/assets/pfsense_hma_13.png" width="630" height="357" /></a></p>
+<h1>Configuration du firewall</h1>
+<ul>
+<li>Aller dans le menu <strong>Firewall &gt; NAT</strong>.</li>
+<li>Sélectionner l'onglet <strong>Outbound</strong>.</li>
+<li>Cocher l'option <strong>Manual Outbound NAT rule generation (<strong> AON - Advanced Outbound NAT)</strong>.</strong></li>
+<li>Cliquer sur <strong>Save</strong>.</li>
+<li>Cliquer ensuite sur le bouton <strong>Apply changes</strong> pour appliquer les modifications.</li>
+</ul>
+<p style="text-align:center;"><a href="{{ site.url }}/assets/pfsense_hma_14.png"><img class="size-full wp-image-252 aligncenter" alt="pfsense_hma_14" src="{{ site.url }}/assets/pfsense_hma_14.png" width="630" height="489" /></a></p>
+<ul>
+<li>Aller dans le menu <strong>Firewall &gt; Rules</strong>.</li>
+<li><strong></strong>Sélectionner l'onglet <strong>LAN</strong> pour ajouter une nouvelle règle.</li>
+<li>Mettre <strong>ips_vpn</strong> comme adresse source. <strong>ips_vpn</strong> est un alias correspondant à 3 adresses IP.</li>
+<li>Éventuellement donner une description à la règle.</li>
+</ul>
+<p style="text-align:center;"><a href="{{ site.url }}/assets/pfsense_hma_15.png"><img class="size-full wp-image-253 aligncenter" alt="pfsense_hma_15" src="{{ site.url }}/assets/pfsense_hma_15.png" width="630" height="525" /></a></p>
+<ul>
+<li>Changer la passerelle (Gateway) et sélectionner <strong>HMA_VPN_VPNV4</strong> au lieu de WAN.</li>
+</ul>
+<p style="text-align:center;"><a href="{{ site.url }}/assets/pfsense_hma_16.png"><img class="size-full wp-image-254 aligncenter" alt="pfsense_hma_16" src="{{ site.url }}/assets/pfsense_hma_16.png" width="630" height="526" /></a></p>
+<ul>
+<li>Attention à ce que la nouvelle règle créée soit bien au dessus de celle par défaut (Default allow LAN to any rule) afin que la nouvelle règle soit traitée en 1ère. Si ce n'est pas cas, la déplacer avec les boutons à droite de la règle.</li>
+<li>Les IPs définies par l'alias <strong>ips_vpn</strong> seront routées vers <strong>HMA</strong> tandis que toutes les autres seront routées vers la route par défaut (<strong>WAN</strong>).</li>
+</ul>
+<p style="text-align:center;"><a href="{{ site.url }}/assets/pfsense_hma_17.png"><img class="size-full wp-image-255 aligncenter" alt="pfsense_hma_17" src="{{ site.url }}/assets/pfsense_hma_17.png" width="630" height="288" /></a></p>
+<h1>Vérification et géolocalisation de l'IP</h1>
+<ul>
+<li>Pour vérifier la configuration du routeur et le routage vers le serveur VPN HMA, plusieurs possibilités:
+<ul>
+<li>Changer l'IP de la machine avec une adresse IP présente dans l'alias <strong>ips_vpn</strong>.</li>
+<li>A partir d'une machine virtuelle sous Virtualbox, avec l'interface réseau activée en mode pont (Bridged Adaptor) et en DHCP client pour récupérer son IP depuis le routeur PFsense.</li>
+</ul>
+</li>
+<li>Se connecter sur <a href="http://whatismyipaddress.com/">http://whatismyipaddress.com/</a> pour vérifier l'IP et la géolocalisation.</li>
+<li>Si cela ne fonctionne pas ou qu'il n'y a pas de connection à Internet, il est parfois nécessaire de redémarrer le routeur.</li>
+<li>Pour ce tutoriel, le serveur VPN est localisé en Suède.</li>
+</ul>
+<p style="text-align:center;"><a href="{{ site.url }}/assets/pfsense_hma_18.png"><img class="size-full wp-image-256 aligncenter" alt="pfsense_hma_18" src="{{ site.url }}/assets/pfsense_hma_18.png" width="630" height="366" /></a></p>
+<h1>Références</h1>
+<ul>
+<li><a href="http://www.pfsense.org/" target="_blank">PFSense Open Source Firewall</a></li>
+<li><a href="http://hidemyass.com/vpn/" target="_blank">Hide My Ass VPN</a></li>
+<li><a href="http://forum.hidemyass.com/index.php/topic/6256-pfsense-openvpn-connection-issues/?hl=pfsense" target="_blank">pfsense OpenVPN connection issues</a></li>
+</ul>

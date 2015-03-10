@@ -1,0 +1,50 @@
+---
+layout: post
+title: Mise à jour de Mac OS X en ligne de commande
+date: 2010-10-21 10:21:00.000000000 +02:00
+categories:
+- Mac OS X
+tags:
+- macosx
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '17000744'
+  _wp_old_slug: ''
+  _wpas_done_twitter: '1'
+  _wpas_done_fb: '1'
+author:
+  login: vdupain
+  email: vdupain@gmail.com
+  display_name: vdupain
+  first_name: ''
+  last_name: ''
+excerpt: !ruby/object:Hpricot::Doc
+  options: {}
+---
+<p>Lorsque des mises à jour sont disponibles pour Mac OS X, une fenêtre popup apparaît pour lister les mises à jour disponible et installer les mises à jour.</p>
+<p><a href="{{ site.url }}/assets/capture-d_ecran-2010-11-11-a-07-52-11.png"><img class="alignnone size-full wp-image-148" title="Capture d’écran 2010-11-11 à 07.52.11" src="{{ site.url }}/assets/capture-d_ecran-2010-11-11-a-07-52-11.png" alt="" width="600" height="226" /></a></p>
+<p>Il est possible d'appliquer ces mises à jour différemment.</p>
+<p>Pour cela lancer un <strong>Terminal</strong> et exécuter la commande <strong>softwareupdate -i -a</strong> pour installer toutes les mises à jour:</p>
+<pre>MacBook-Pro-de-Vince:~ vince$ sudo softwareupdate -i -a
+Password:
+Software Update Tool
+Copyright 2002-2009 Apple
+
+Downloading Java for Mac OS X 10.6 Update 3
+Waiting to install Java for Mac OS X 10.6 Update 3
+   Checking packages…
+Installing
+   Waiting for other installations to complete…
+
+   Writing files…
+   Running package scripts…
+   Optimizing system for installed software…
+   Moving items into place…
+   Registering updated applications…
+   Writing package receipts…
+   Cleaning up…
+Installed Java for Mac OS X 10.6 Update 3
+Done.</pre>
+<p>Voila c'est fini, votre machine est à jour! Par la suite, il est possible d'automatiser l'installation de ces mises à jour avec <strong>cron</strong> ou <strong>launchd</strong>.</p>

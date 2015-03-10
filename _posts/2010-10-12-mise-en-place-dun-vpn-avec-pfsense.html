@@ -1,0 +1,197 @@
+---
+layout: post
+title: Mise en place d'un VPN avec PFSense
+date: 2010-10-12 11:29:44.000000000 +02:00
+categories:
+- Réseau
+tags:
+- alix
+- livebox
+- mac
+- macosx
+- openvpn
+- pare-feu
+- pfsense
+- routeur
+- vpn
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '17000744'
+  _wp_old_slug: ''
+  _wpas_skip_twitter: '1'
+  _wpas_skip_fb: '1'
+  _oembed_182aad34d6148c22deaa26b03ea64218: '{{unknown}}'
+  _oembed_58f7cd503f02a4e434640ae6f496e765: '{{unknown}}'
+  _oembed_b9cc1311413935d02c24c3c1e64e2f3a: '{{unknown}}'
+  _oembed_0fa152927c8f140d28fa2f46bac910a9: '{{unknown}}'
+  _oembed_7dc4da6dd02a7cd154229b23aa5d8bad: '{{unknown}}'
+  _oembed_aa47e821334dddbb3cdf73d013349af2: '{{unknown}}'
+author:
+  login: vdupain
+  email: vdupain@gmail.com
+  display_name: vdupain
+  first_name: ''
+  last_name: ''
+excerpt: !ruby/object:Hpricot::Doc
+  options: {}
+---
+<div>
+<h1>Objectif</h1>
+<p>Accès au réseau interne d'une PME de façon sécurisée depuis un ordinateur portable (MacBook Pro) connecté à Internet avec une clé 3G.</p>
+<p>La PME dispose déjà d'un accès Internet depuis une Livebox Pro Inventel.</p>
+<h1>Solution</h1>
+<p>La solution consiste à mettre en place un réseau privé virtuel (VPN).</p>
+<p>Un routeur PFSense sera mise en place, ce routeur/pare-feu sera connecté derrière une LiveBox qui fait du PPPoE vers l'ISP.</p>
+<p>L'adresse IP publique de la LiveBox est dynamique, il faudra prévoir de créer un nom de domaine et de l'associer avec l'IP dynamique avec un service comme DynDNS par exemple.</p>
+<p>L'interface WAN du routeur PFSense aura une adresse IP interne (192.168.2.254) avec la LiveBox comme passerelle (192.168.2.1).</p>
+<p>Il sera donc nécessaire de reconfigurer la LiveBox pour désactiver certaines fonctions qui seront désormais prises en charge par le routeur PFSense (serveur DHCP, pare-feu, serveur OpenVPN...).</p>
+<p style="padding-left:30px;text-align:center;">&nbsp;</p>
+<p style="text-align:center;"><a href="{{ site.url }}/assets/conf21.jpeg"><img class="alignnone size-full wp-image-65" title="conf2" src="{{ site.url }}/assets/conf21.jpeg" alt="" width="381" height="309" /></a></p>
+<h2>Contraintes à prendre en compte</h2>
+<ul>
+<li>LiveBox Pro Inventel pour la connection à Internet.</li>
+<li>Hardware: appliance <a href="http://www.pcengines.ch/alix2d13.htm">ALIX 2D13</a> pour le routeur PFSense.</li>
+<li>Software: routeur/pare-feu <a href="http://www.pfsense.org/" target="_blank">PFSense</a> (version 1.2.3), basé sur FreeBSD.</li>
+<li>Client OpenVPN pour MacOSX Snow Leopard: <a href="http://code.google.com/p/tunnelblick/" target="_blank">Tunnelblick</a> ou <a href="http://www.viscosityvpn.com/" target="_blank">Viscosity</a>. Le choix se porte plutôt sur Viscosity car plus user friendly pour des non-informaticiens.</li>
+</ul>
+<p><a href="http://localhost:8888/wordpress/wp-content/uploads/2010/06/conf2.jpeg"></a></p>
+<h1>Mise en oeuvre</h1>
+<h2>Configuration de la LiveBox</h2>
+<ul>
+<li>Accéder au menu de configuration interne de la LiveBox, généralement <a href="http://192.168.1.1/" target="_blank">http://192.168.1.1</a></li>
+<li>Aller dans le menu "Configuration &gt; Avancée &gt; Réseau" et modifier les paramètres:
+<ul>
+<li>Activation du serveur DHCP: décoché</li>
+<li>Adresse IP LAN: 192.168.2.1</li>
+<li>Adresse broadcast du LAN: 192.168.2.255</li>
+<li>Masque de sous-réseau: 255.255.255.0</li>
+<li>Début de la plage DHCP: 192.168.2.254</li>
+<li>Fin de la plage DHCP: 192.168.2.254</li>
+<li>Cliquer sur le bouton "Soumettre"</li>
+</ul>
+</li>
+<li>Une fois la LiveBox redémarrée, accéder à nouveau au menu de configuration, cette fois ci à l'adresse <a href="http://192.168.2.1/">http://192.168.2.1</a></li>
+<li>Aller dans le menu "Configuration &gt; Avancée &gt; DNS Dynamique" et configurer le service de DNS dynamique (DynDNS dans notre cas)</li>
+<li>Aller dans le menu "Configuration &gt; Avancée &gt; Routeur" et modifier les paramètres:
+<ul>
+<li>Configurer la DMZ avec l'adresse IP 192.168.2.254, c'est l'adresse IP de l'interface WAN qui sera attribuée au routeur PFSense</li>
+<li>Configurer la redirection de port vers le routeur PFSense pour le port 1194, port du serveur OpenVPN
+<ul>
+<li>Service: 1194</li>
+<li>Protocole: TCP</li>
+<li>Port externe: 1194</li>
+<li>Port interne: 1194</li>
+<li>Adresse IP du serveur: 192.168.2.254</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Aller dans le menu "Sécurité &gt; Pare-feu" et changer le niveau de sécurité sur "minimum"</li>
+</ul>
+<p>La LiveBox est correctement configurée, elle ne sert plus que de passerelle vers Internet.</p>
+<p>Bien que la DMZ ait été configurée, il est quand même nécessaire de configurer le NAT et la redirection de port vers le routeur?</p>
+<p style="text-align:center;"><a href="{{ site.url }}/assets/livebox_reseau.png"><img class="size-medium wp-image-13 aligncenter" title="livebox_reseau" src="{{ site.url }}/assets/livebox_reseau.png?w=300" alt="" width="300" height="264" /></a></p>
+<p style="text-align:center;"><a href="{{ site.url }}/assets/livebox_reseau.png"></a><span style="color:#0000ee;"><a href="{{ site.url }}/assets/livebox_dyndns.png"><img class="alignnone size-medium wp-image-10" title="livebox_dyndns" src="{{ site.url }}/assets/livebox_dyndns.png?w=300" alt="" width="300" height="128" /></a></span></p>
+<p style="text-align:center;"><span style="color:#0000ee;"><a href="{{ site.url }}/assets/livebox_nat_dmz.png"><img class="alignnone size-medium wp-image-11" title="livebox_nat_dmz" src="{{ site.url }}/assets/livebox_nat_dmz.png?w=300" alt="" width="300" height="155" /></a></span></p>
+<p style="text-align:center;"><span style="color:#0000ee;"><a href="{{ site.url }}/assets/livebox_parefeu.png"><img class="alignnone size-medium wp-image-12" title="livebox_parefeu" src="{{ site.url }}/assets/livebox_parefeu.png?w=300" alt="" width="300" height="97" /></a></span></p>
+<p><span style="color:#0000ee;"><br />
+</span></p>
+<h2>Configuration du routeur/pare-feu PFSense</h2>
+<h3>Pré-requis</h3>
+<ul>
+<li>PFSense 1.2.3 est déjà installé sur le routeur ALIX: image embedded installée sur carte Compact Flash</li>
+<li>Les certificats et clés RSA ont déjà été générés grâce aux scripts easy-rsa fournis avec OpenVPN</li>
+</ul>
+<ul>
+<li>Accéder à la page de configuration du routeur PFSense, <a href="http://192.168.1.1/" target="_blank">http://192.168.1.1</a></li>
+<li>Aller dans le menu "Interfaces &gt; WAN", puis renseigner les champs suivants:
+<ul>
+<li>Type: Static</li>
+<li>IP Address: 192.168.2.254 /24</li>
+<li>Gateway: 192.168.2.1</li>
+<li>Décocher Block private networks</li>
+<li>Décocher Block bogon networks</li>
+</ul>
+</li>
+</ul>
+<p>L'adresse IP de l'interface WAN étant une adresse privée, il faut autoriser le routage, ce qui n'est pas le cas par défaut, car bien souvent l'adresse IP WAN est une adresse publique routable sur Internet.</p>
+<ul>
+<li>Sauvegarder les paramètres</li>
+<li>Aller dans le menu "VPN &gt; OpenVPN" et sélectionner l'onglet "Server"</li>
+<li>Cliquer sur "+" pour ajouter un nouveau serveur OpenVPN puis renseigner les champs suivants:
+<ul>
+<li>Protocol: TCP</li>
+<li>Dynamic IP: coché</li>
+<li>Local port: 1194</li>
+<li>Address pool: 192.168.3.0/24</li>
+<li>Local network: 192.168.1.0/24</li>
+<li>Cryptography: AES-128-CBC</li>
+<li>Authentication method: PKI</li>
+<li>CA certificate: contenu du fichier ca.crt</li>
+<li>Server certificate: contenu du fichier server.crt</li>
+<li>Server key: contenu du fichier server.key</li>
+<li>DH parameters: contenu du fichier dh1024.pem</li>
+<li>DHCP-Opt.: DNS-Server: 192.168.1.1</li>
+<li>LZO compression: coché</li>
+<li>Custom options: engine cryptodev;management 127.0.0.1 1194;</li>
+</ul>
+</li>
+</ul>
+<p>Le paramètre de cryptographie "AES-128-CBC" et l'option "engine cryptodev"  permettent de profiter de l'accélération matériel AES 128 bits de la carte ALIX 2D13 pour le cryptage/décryptage des clés de chiffrement.</p>
+<ul>
+<li>Sauvegarder les paramètres. Une règle sera automatiquement crée pour autoriser les connexions entrantes sur le port 1194 de l'interface WAN</li>
+</ul>
+<p style="text-align:center;"><a href="{{ site.url }}/assets/interface_wan_1.png"><img class="alignnone size-medium wp-image-14" title="interface_wan_1" src="{{ site.url }}/assets/interface_wan_1.png?w=300" alt="" width="300" height="155" /></a></p>
+<p style="text-align:center;"><a href="{{ site.url }}/assets/interface_wan_2.png"><img class="alignnone size-medium wp-image-15" title="interface_wan_2" src="{{ site.url }}/assets/interface_wan_2.png?w=300" alt="" width="300" height="117" /></a></p>
+<p style="text-align:center;"><a href="{{ site.url }}/assets/openvpn_1.png"><img class="alignnone size-medium wp-image-16" title="openvpn_1" src="{{ site.url }}/assets/openvpn_1.png?w=300" alt="" width="300" height="235" /></a></p>
+<p style="text-align:center;"><a href="{{ site.url }}/assets/openvpn_2.png"><img class="alignnone size-medium wp-image-17" title="openvpn_2" src="{{ site.url }}/assets/openvpn_2.png?w=300" alt="" width="300" height="211" /></a></p>
+<p style="text-align:center;"><a href="{{ site.url }}/assets/openvpn_3.png"><img class="alignnone size-medium wp-image-18" title="openvpn_3" src="{{ site.url }}/assets/openvpn_3.png?w=300" alt="" width="300" height="226" /></a></p>
+<h2>Configuration du portable MacBook Pro</h2>
+<ul>
+<li>Installer le client OpenVPN <a href="http://www.viscosityvpn.com/" target="_blank">Viscosity</a></li>
+<li>Aller dans le menu "Préférences" et créer une nouvelle connexion:</li>
+<li>Dans l'onglet "Général"
+<ul>
+<li>Connexion: entrer un nom au choix</li>
+<li>Serveur distant: mettre l'adresse telle que configurée dans le menu "DNS Dynamique" de la LiveBox</li>
+<li>Port: 1194</li>
+<li>Protocole: TCP</li>
+<li>Type: tun</li>
+<li>Activer le support DNS</li>
+</ul>
+</li>
+<li>Dans l'onglet "Certificats"
+<ul>
+<li>Mettre le CA certificat (ca.crt)</li>
+<li>Mettre le certificate (cert.crt)</li>
+<li>Mettre la clé du client (.key)</li>
+</ul>
+</li>
+<li>Dans l'onglet "Options
+<ul>
+<li>Activer la compression LZO</li>
+<li>Cocher l'option "Persist Tun"</li>
+<li>Cocher l'option "Persist Key"</li>
+<li>Cocher l'option "Options Pull"</li>
+</ul>
+</li>
+<li>Dans l'onglet "Avancés, ajouter les options:
+<ul>
+<li>float</li>
+<li>cipher AES-128-CBC</li>
+<li>resolv-retry infinite</li>
+<li>tls-client</li>
+<li>ns-cert-type server</li>
+</ul>
+</li>
+</ul>
+<p style="text-align:center;"><a href="{{ site.url }}/assets/viscosity_preferences.png"><img class="size-medium wp-image-19 aligncenter" title="viscosity_preferences" src="{{ site.url }}/assets/viscosity_preferences.png?w=300" alt="" width="300" height="210" /></a></p>
+<p style="text-align:center;"><a href="{{ site.url }}/assets/viscosity_prefs_general.png"><img class="alignnone size-medium wp-image-22" title="viscosity_prefs_general" src="{{ site.url }}/assets/viscosity_prefs_general.png?w=300" alt="" width="300" height="185" /></a></p>
+<p style="text-align:center;"><a href="{{ site.url }}/assets/viscosity_prefs_certificats.png"><img class="alignnone size-medium wp-image-21" title="viscosity_prefs_certificats" src="{{ site.url }}/assets/viscosity_prefs_certificats.png?w=300" alt="" width="300" height="185" /></a></p>
+<p style="text-align:center;"><a href="{{ site.url }}/assets/viscosity_prefs_options.png"><img class="alignnone size-medium wp-image-23" title="viscosity_prefs_options" src="{{ site.url }}/assets/viscosity_prefs_options.png?w=300" alt="" width="300" height="185" /></a></p>
+<p style="text-align:center;"><a href="{{ site.url }}/assets/viscosity_prefs_reseau.png"><img class="alignnone size-medium wp-image-25" title="viscosity_prefs_reseau" src="{{ site.url }}/assets/viscosity_prefs_reseau.png?w=300" alt="" width="300" height="185" /></a></p>
+<p style="text-align:center;"><a href="{{ site.url }}/assets/viscosity_prefs_proxy.png"><img class="alignnone size-medium wp-image-24" title="viscosity_prefs_proxy" src="{{ site.url }}/assets/viscosity_prefs_proxy.png?w=300" alt="" width="300" height="185" /></a></p>
+<p style="text-align:center;"><a href="{{ site.url }}/assets/viscosity_prefs_avances.png"><img class="alignnone size-medium wp-image-20" title="viscosity_prefs_avances" src="{{ site.url }}/assets/viscosity_prefs_avances.png?w=300" alt="" width="300" height="185" /></a></p>
+</div>
