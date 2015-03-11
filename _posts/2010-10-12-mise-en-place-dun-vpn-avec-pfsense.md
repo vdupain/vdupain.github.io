@@ -25,7 +25,7 @@ L'interface WAN du routeur PFSense aura une adresse IP interne (192.168.2.254) a
 Il sera donc nécessaire de reconfigurer la LiveBox pour désactiver certaines fonctions qui seront désormais prises en charge par le routeur PFSense (serveur DHCP, pare-feu, serveur OpenVPN...).
 
 
-[![]({{ site.url }}/assets/conf21.jpeg "conf2")]({{ site.url }}/assets/conf21.jpeg)
+![](/assets/conf21.jpeg)
 
 ## Checklist
 
@@ -68,13 +68,13 @@ La LiveBox est correctement configurée, elle ne sert plus que de passerelle ver
 
 Bien que la DMZ ait été configurée, il est quand même nécessaire de configurer le NAT et la redirection de port vers le routeur?
 
-[![]({{ site.url }}/assets/livebox_reseau.png "livebox_reseau")]({{ site.url }}/assets/livebox_reseau.png)
+![](/assets/livebox_reseau.png)
 
-[]({{ site.url }}/assets/livebox_reseau.png)<span>[![]({{ site.url }}/assets/livebox_dyndns.png "livebox_dyndns")]({{ site.url }}/assets/livebox_dyndns.png)</span>
+![](/assets/livebox_dyndns.png)
 
-<span>[![]({{ site.url }}/assets/livebox_nat_dmz.png "livebox_nat_dmz")]({{ site.url }}/assets/livebox_nat_dmz.png)</span>
+![](/assets/livebox_nat_dmz.png)
 
-<span>[![]({{ site.url }}/assets/livebox_parefeu.png "livebox_parefeu")]({{ site.url }}/assets/livebox_parefeu.png)</span>
+![](/assets/livebox_parefeu.png)
 
 ### Configuration du routeur PFSense
 
@@ -115,15 +115,15 @@ Le paramètre de cryptographie "AES-128-CBC" et l'option "engine cryptodev"  pe
 
 *   Sauvegarder les paramètres. Une règle sera automatiquement crée pour autoriser les connexions entrantes sur le port 1194 de l'interface WAN
 
-[![]({{ site.url }}/assets/interface_wan_1.png "interface_wan_1")]({{ site.url }}/assets/interface_wan_1.png)
+![](/assets/interface_wan_1.png)
 
-[![]({{ site.url }}/assets/interface_wan_2.png "interface_wan_2")]({{ site.url }}/assets/interface_wan_2.png)
+![](/assets/interface_wan_2.png)
 
-[![]({{ site.url }}/assets/openvpn_1.png "openvpn_1")]({{ site.url }}/assets/openvpn_1.png)
+![](/assets/openvpn_1.png)
 
-[![]({{ site.url }}/assets/openvpn_2.png "openvpn_2")]({{ site.url }}/assets/openvpn_2.png)
+![](/assets/openvpn_2.png)
 
-[![]({{ site.url }}/assets/openvpn_3.png "openvpn_3")]({{ site.url }}/assets/openvpn_3.png)
+![](/assets/openvpn_3.png)
 
 ### Configuration du MacBook Pro
 
@@ -152,17 +152,17 @@ Le paramètre de cryptographie "AES-128-CBC" et l'option "engine cryptodev"  pe
     *   tls-client
     *   ns-cert-type server
 
-[![]({{ site.url }}/assets/viscosity_preferences.png "viscosity_preferences")]({{ site.url }}/assets/viscosity_preferences.png)
+![](/assets/viscosity_preferences.png)
 
-[![]({{ site.url }}/assets/viscosity_prefs_general.png "viscosity_prefs_general")]({{ site.url }}/assets/viscosity_prefs_general.png)
+![](/assets/viscosity_prefs_general.png)
 
-[![]({{ site.url }}/assets/viscosity_prefs_certificats.png "viscosity_prefs_certificats")]({{ site.url }}/assets/viscosity_prefs_certificats.png)
+![](/assets/viscosity_prefs_certificats.png)
 
-[![]({{ site.url }}/assets/viscosity_prefs_options.png "viscosity_prefs_options")]({{ site.url }}/assets/viscosity_prefs_options.png)
+![](/assets/viscosity_prefs_options.png)
 
-[![]({{ site.url }}/assets/viscosity_prefs_reseau.png "viscosity_prefs_reseau")]({{ site.url }}/assets/viscosity_prefs_reseau.png)
+![](/assets/viscosity_prefs_reseau.png)
 
-[![]({{ site.url }}/assets/viscosity_prefs_proxy.png "viscosity_prefs_proxy")]({{ site.url }}/assets/viscosity_prefs_proxy.png)
+![](/assets/viscosity_prefs_proxy.png)
 
-[![]({{ site.url }}/assets/viscosity_prefs_avances.png "viscosity_prefs_avances")]({{ site.url }}/assets/viscosity_prefs_avances.png)
+![](/assets/viscosity_prefs_avances.png)
 

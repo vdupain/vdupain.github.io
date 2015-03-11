@@ -8,7 +8,7 @@ categories: osx
 
 Lorsque des mises à jour sont disponibles pour OS X, une fenêtre popup apparaît pour lister les mises à jour disponible et installer les mises à jour.
 
-[![]({{ site.url }}/assets/capture-d_ecran-2010-11-11-a-07-52-11.png "Capture d’écran 2010-11-11 à 07.52.11")]({{ site.url }}/assets/capture-d_ecran-2010-11-11-a-07-52-11.png)
+![](/assets/capture-d_ecran-2010-11-11-a-07-52-11.png)
 
 Il est possible d'appliquer ces mises à jour depuis la ligne de commande.
 

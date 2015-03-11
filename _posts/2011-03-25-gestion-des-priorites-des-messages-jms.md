@@ -8,7 +8,7 @@ categories: developpement
 
 Ce Quick Start Guide JMS a pour but de montrer simplement comment poster des messages dans une file JMS et de les consommer par ordre de priorité comme illustré par le schéma suivant:
 
-[![]({{ site.url }}/assets/resequencer.gif "Resequencer")](http://www.eaipatterns.com/Resequencer.html)
+[![](/assets/resequencer.gif "Resequencer")](http://www.eaipatterns.com/Resequencer.html)
 
 Cet exemple a été réalisé et testé dans l'environnement suivant:
 

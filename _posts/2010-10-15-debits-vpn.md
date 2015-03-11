@@ -10,13 +10,12 @@ Suite à la mise en place d'un VPN (OpenVPN) avec un routeur sous PFSense, j'ai 
 
 Tout d'abord, vérifions la présence du module d'accélération matériel et sa prise en charge par PFSense (FreeBSD 7.2 sous le capot de PFSense 1.2.3), je lance une commande dmesg sur le routeur pour en savoir un peu plus...
 
-<pre>
+```
 [admin@firewall]/root: dmesg
 ...
 glxsb0: &lt;AMD Geode LX Security Block (AES-128-CBC, RNG)&gt; mem 0xefff4000-0xefff7fff irq 9 at device 1.2 on pci0
 ...
-</pre>
-
+```
 Le module glxsb est bien chargé.
 
 ## Benchmarking avec openssl
@@ -44,7 +43,7 @@ aes-128-cbc        575.50k     2220.60k     7681.98k    19713.05k    32697.50k
 ```
 On voit nettement l'effet de la crypto matérielle AES avec la taille des blocs de données qui augmente.
 
-[![]({{ site.url }}/assets/benchmark_openssl_speed1.png "benchmark_openssl_speed")]({{ site.url }}/assets/benchmark_openssl_speed1.png)
+![](/assets/benchmark_openssl_speed1.png)
 
 ## Mesures de débit
 
@@ -144,11 +143,10 @@ TCP window size: 64.0 KByte (default)
 ```
 ## Conclusion
 
-[![]({{ site.url }}/assets/mesures_de_debits_avec_iperf1.png "mesures_de_débits_avec_iperf")]({{ site.url }}/assets/mesures_de_debits_avec_iperf1.png)
+![](/assets/mesures_de_debits_avec_iperf1.png)
 
-[![]({{ site.url }}/assets/benchmarks_debits_vpn1.png "benchmarks_débits_vpn")]({{ site.url }}/assets/benchmarks_debits_vpn1.png)
+![](/assets/benchmarks_debits_vpn1.png)
 
-[]({{ site.url }}/assets/benchmarks_debits_vpn.png)
 
 L'écart de performance entre l'activation ou non de l'accélération matériel n'est pas flagrant contrairement à ce que laissait penser les mesures de vitesse d'algorithme de chiffrement avec openssl.
 
