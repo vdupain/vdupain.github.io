@@ -11,7 +11,7 @@ categories:
 
 L'objectif est de configurer le routeur/firewall [PFSense](http://www.pfsense.org) pour router le trafic de certaines adresses IP vers [HideMyAss](http://hidemyass.com/vpn/) (HMA) avec OpenVPN.
 
-Ce tutoriel est plus ou moins valable pour d'autres fournisseurs VPN pour peu que l'on configure correctement le client OpenVPN correctement.
+Ce tutoriel est plus ou moins valable pour d'autres fournisseurs VPN pour peu que l'on configure le client OpenVPN correctement.
 
 **_Petit rappel_**:  un VPN permet d'établir un tunnel chiffré entre votre ordinateur et un serveur VPN qui vous sert de passerelle vers Internet. Le VPN est à ce jour la seule solution fiable contre le DPI (Deep Packet Inspection). Le VPN permet par exemple d'accéder à un service limité à une zone géographique en se basant sur la géolocalisation des adresses IP (Google Music à ces débuts, marketplace XBox/PS3, fournisseurs de contenu, etc...)
 

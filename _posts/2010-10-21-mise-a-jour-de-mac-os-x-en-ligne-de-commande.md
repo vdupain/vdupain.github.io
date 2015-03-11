@@ -1,21 +1,21 @@
 ---
 layout: post
 title: Mise à jour de Mac OS X en ligne de commande
-date: 2010-10-21 10:21:00.000000000 +02:00
+date: 2010-10-21
 comments: true
-categories:
-- osx
+categories: osx
 ---
 
-Lorsque des mises à jour sont disponibles pour Mac OS X, une fenêtre popup apparaît pour lister les mises à jour disponible et installer les mises à jour.
+Lorsque des mises à jour sont disponibles pour OS X, une fenêtre popup apparaît pour lister les mises à jour disponible et installer les mises à jour.
 
 [![]({{ site.url }}/assets/capture-d_ecran-2010-11-11-a-07-52-11.png "Capture d’écran 2010-11-11 à 07.52.11")]({{ site.url }}/assets/capture-d_ecran-2010-11-11-a-07-52-11.png)
 
-Il est possible d'appliquer ces mises à jour différemment.
+Il est possible d'appliquer ces mises à jour depuis la ligne de commande.
 
 Pour cela lancer un **Terminal** et exécuter la commande **softwareupdate -i -a** pour installer toutes les mises à jour:
 
-<pre>MacBook-Pro-de-Vince:~ vince$ sudo softwareupdate -i -a
+```
+MacBook-Pro-de-Vince:~ vince$ sudo softwareupdate -i -a
 Password:
 Software Update Tool
 Copyright 2002-2009 Apple
@@ -34,6 +34,8 @@ Installing
    Writing package receipts…
    Cleaning up…
 Installed Java for Mac OS X 10.6 Update 3
-Done.</pre>
+Done.
+```
 
-Voila c'est fini, votre machine est à jour! Par la suite, il est possible d'automatiser l'installation de ces mises à jour avec **cron** ou **launchd**.
+Voila c'est fini, votre machine est à jour!
+Par la suite, il sera possible d'automatiser l'installation de ces mises à jour avec **cron** ou **launchd**.
