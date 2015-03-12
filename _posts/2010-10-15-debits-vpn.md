@@ -40,7 +40,8 @@ engine "cryptodev" set.
 ...
 type             16 bytes     64 bytes    256 bytes   1024 bytes   8192 bytes
 aes-128-cbc        575.50k     2220.60k     7681.98k    19713.05k    32697.50k
-```
+```
+
 On voit nettement l'effet de la crypto matérielle AES avec la taille des blocs de données qui augmente.
 
 ![](/assets/benchmark_openssl_speed1.png)
@@ -62,7 +63,7 @@ Le protocole et les conditions du tests sont les suivants:
     *   1 serveur OpenVPN en TCP sur le port 1194 **avec** l'accélération matériel (engine cryptodev)
     *   1 serveur OpenVPN en TCP sur le port 1195 **sans** l'accélération matériel
 
-[![]({{ site.url }}/assets/serveurs_openvpn.png "serveurs_openvpn")]({{ site.url }}/assets/serveurs_openvpn.png)
+![](/assets/serveurs_openvpn.png)
 
 *   Algorithme de crypto: AES-128-CBC
 *   Les tests ont lieu avec une liaison Ethernet 100 Mbits Full Duplex
@@ -140,7 +141,8 @@ TCP window size: 64.0 KByte (default)
 [  3] 40.0-50.0 sec  10.8 MBytes  9.03 Mbits/sec
 [ ID] Interval       Transfer     Bandwidth
 [  3]  0.0-60.0 sec  65.3 MBytes  9.13 Mbits/sec
-```
+```
+
 ## Conclusion
 
 ![](/assets/mesures_de_debits_avec_iperf1.png)

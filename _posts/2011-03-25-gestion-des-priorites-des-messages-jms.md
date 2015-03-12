@@ -92,25 +92,6 @@ Il faut ensuite modifier le fichier **pom.xml** pour:
             </property>
           </systemProperties>
         </configuration>
-        <!--
-        <dependencies>
-          <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring</artifactId>
-            <version>2.5.5</version>
-          </dependency>
-          <dependency>
-            <groupId>org.mortbay.jetty</groupId>
-            <artifactId>jetty-xbean</artifactId>
-            <version>6.1.11</version>
-          </dependency>
-          <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-activemq</artifactId>
-            <version>1.1.0</version>
-          </dependency>
-        </dependencies>
-      -->
       </plugin>
     </plugins>
   </build>
@@ -421,7 +402,7 @@ L'erreur fréquente est de spécifier la priorité dans l'objet [Message](http:/
 
 ## Références
 
-* [Code source de l'exemple sur Google Code](http://code.google.com/p/vince/source/browse/#svn%2Ftrunk%2Fmessaging%2Fproducer)
+* [Code source sur GitHub](https://github.com/vdupain/jms/tree/master/messaging)
 * [Apache ActiveMQ](http://activemq.apache.org)
 * [ActiveMQ JNDI Support](http://activemq.apache.org/jndi-support.html)
 * [Maven2 ActiveMQ Broker Plugin](http://activemq.apache.org/maven2-activemq-broker-plugin.html)
