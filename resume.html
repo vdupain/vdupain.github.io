@@ -1,0 +1,70 @@
+---
+layout: default
+title: Resume
+---
+ 
+<!-- resume.html -->
+ 
+<article class="resume">
+  <header>
+    <address>
+      <h1 class="name">{{ page.resume.firstName }} {{ page.resume.lastName }}</h1>
+      <ul>
+        <li>
+          <span>web</span>
+          <a target="_blank" href="{{ site.href }}">{{ site.hostname }}</a>
+        </li>
+ 
+        <li>
+          <span>email</span>
+          <a target="_blank" href="mailto:{{ site.email }}">{{ site.email }}</a>
+        </li>
+ 
+        <li>
+          <span>github</span>
+          <a target="_blank" href="http://github.com/vdupain">github.com/vdupain</a>
+        </li>
+      </ul>
+    </address>
+  </header>
+ 
+  <section>
+    <h2>Experience</h2>
+    <ul>
+      {% for position in page.resume.positions.values %}
+        <li>
+          <h3>{{ position.company.name }}</h3>
+          <h4>{{ position.title }}</h4>
+          <date>{{ position.startDate }} - {{ position.endDate }}</date>
+          <p>{{ position.summary }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+
+<!-- 
+  <section>
+    <h2>Projects</h2>
+    <ul>
+      {% for project in page.resume.projects.values %}
+        <li>
+          <h3><a href="{{ project.url }}">{{ project.name }}</a></h3>
+          <p>{{ project.description }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+-->
+ 
+  <section>
+    <h2>Education</h2>
+    <ul>
+      {% for education in page.resume.educations.values %}
+        <h3>{{ education.schoolName }}</h3>
+        <h4>{{ education.degree }}, {{ education.fieldOfStudy }}</h4>
+        <date>{{ education.startDate.year }} - present</date>
+      {% endfor %}
+    </ul>
+  </section>
+</article>
+

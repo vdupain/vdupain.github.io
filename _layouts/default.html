@@ -19,7 +19,10 @@
         {{ content }}
       </main>
 
-      {% include comments.html %}
+      {% if page.comments %}
+        <div id="disqus_thread"></div>
+        {% include disqus-comments.html %}
+      {% endif %}
 
       <footer class="footer">
         <small>
