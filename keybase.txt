@@ -1,0 +1,73 @@
+==================================================================
+https://keybase.io/vdupain
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://vdupain.github.io
+  * I am vdupain (https://keybase.io/vdupain) on keybase.
+  * I have a public key with fingerprint 2DC8 2793 EC54 EA61 F40C  AD27 3220 301D A42C 19F7
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "fingerprint": "2dc82793ec54ea61f40cad273220301da42c19f7",
+            "host": "keybase.io",
+            "key_id": "3220301da42c19f7",
+            "kid": "010156ba06ce630f893ca20371dc9880d1bcc4d32de4706b1e7c0e9b2d96f31719960a",
+            "uid": "629c78e92041fbf5718b8864bdc7e519",
+            "username": "vdupain"
+        },
+        "service": {
+            "hostname": "vdupain.github.io",
+            "protocol": "https:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1429768325,
+    "expire_in": 157680000,
+    "prev": "830472d1c4a0259101ba2855c3c93b6f49b90b1de1a0a65cfef2d632c2b9f12e",
+    "seqno": 6,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Comment: GPGTools - https://gpgtools.org
+
+owFtkn9MVWUYx/kRFASoUzRIYh5w5brQec859/y4G9zSyp+RldCNpMs573nPvYcf
+51zuD/KKgG6IF7A7BoqBzlgTwmyEZrjYvI6mpjB0obQSZ8iFEawgRDZiNjuH6o+2
+3n/evd/n83yf93n21MeGh0SHFtbm7T6cF/NRaP+kEJLN+vxlmKCKXsxUhhWipUuS
+FRtyOpyy4sZMGCFClmA4EkEjhXgaSBQOeZFgSILASRyIPEVAwEkMZsDsqkvP0GwE
+3oXSZVXTtIdVFjX1f/jCpQAOcGCkBR6nIaJJXGI5EvIaywARciyLi0CAkBJJQkQU
+g9MCQAzEEScQIkdLJGAAx9E4r9l5luxogoMMizgCp4AkSEYGsALL0pQgQgYZAaeD
+LuRU+GKk0aWix8HLClZuwDSxVIZIn4DeyH+BdJvstnuEv3tyOFW3CtUiLWx3ux0u
+k57u9jp0/kMkWP9xsgqyImqz1DJKkdMlqwpmAhoJ3bJuDSiCY2iWJIwGDO1xyE5k
+lXXCqIm4dvQ6qFSzZEmcYggRQIrHCSOnjUvgCdZohCTkSIGWKE7gcAGICPA4Txuh
+hCRCpEkCEgInAQJhem8lioqZaO2bvE2zdMk2hXdHepwIK4+uCVv7REhodEhkRJi+
+DyHRUcv/XRLzzLLHQkOwduJbKT1lqi74/i9951ImRqZahpKuHhErUv84+tL86ORA
++/r0ntSaBXO9zR6xenDu0p1TG7JySsuB5eed9+sLzE1vrk62vGtdr7wOpLnrtw9l
+31Zv+Fe021PSTg/BdZlPm87sr/Be6+/jV3xTcWNl2/dfJVD9gc2BjIa8ZnPugaT5
+6EPpi001r5VNv5EZ+0VhXHXsK0mj7HT1zG/HvXHBoriR9ohWQ2BtZeY+8KllNmZ2
+qiWy0T9PUqf9vh3vpe1dKMCud9CzKmtQN2+q2PLZq54DR7ZdG/dXfVdSvdB6Z7jk
+LiUlVzZ2FK/atIssDgw/v6M3Aa3ZmZv4VrClN+VK23MXAr6o0XBnQuYz410jY4au
+NYF198amZuIqzIto3628sqFlVSd/jxcube/0nXiSYyYXqqj6h+onu3v82Nue4cra
+0LAXzzzIDS/q7j4alpvx5wcZs+a6DaNKi6XfnOho7huofba1aWC/YtvIZ9TVOb05
+e3zvtNzryfqSdDmvLj5ctG63fM7nD+5NvND++Nzdy5dfyG98kI1++PVi882xLbas
+gmPS8cSJtoG++9saPMHlT50dV1bd9HadtUi3zq/s5du8c8c6prf27up8eaPton0s
+vu/R+Zyf0sqjJmtyPz4oJqR+fcX9Y8zhreGFsi950DVxKj/Q/SiuM5GIZ4ODPHfQ
+0f0X
+=tO5T
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/vdupain
+
+==================================================================
+
